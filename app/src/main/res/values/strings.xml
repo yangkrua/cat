@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cat</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="enter_your_cats_name">Enter your cats name</string>
+    <string name="cat_color">Enter your cats color</string>
+    <string name="submit">Submit</string>
+</resources>
