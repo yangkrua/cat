@@ -8,7 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -21,9 +25,32 @@ public class UIEspressoTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void shouldDisplayCatName() {
-        final String CATNAME = "somsak";
+    public void shouldDisplayCatNameHint() {
+        final String CAT_HINT_NAME = "Enter your cats name";
+        onView(withHint(CAT_HINT_NAME)).check(matches(isDisplayed()));
+    }
 
-        onView(withId(R.id.etCatName)).check(matches(withText(CATNAME)));
+    @Test
+    public void shouldDisplayCatColorHint() {
+        final String CAT_HINT_COLOR = "Enter your cats color";
+        onView(withHint(CAT_HINT_COLOR)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void shouldContainCatName() {
+        final String CAT_NAME = "somsak";
+
+        onView(withId(R.id.etCatName)).perform(typeText(CAT_NAME));
+    }
+
+    @Test
+    public void shouldContainCatColor() {
+        final String CAT_COLOR = "blue";
+        onView(withId(R.id.etCatColor)).perform(typeText(CAT_COLOR));
+    }
+
+    @Test
+    public void shouldPerformClick() {
+        onView(withId(R.id.btnSubmit)).perform(click());
     }
 }
