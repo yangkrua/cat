@@ -25,32 +25,22 @@ public class UIEspressoTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void shouldDisplayCatNameHint() {
+    public void shouldDisplayCatNameAndColorHint() {
         final String CAT_HINT_NAME = "Enter your cats name";
         onView(withHint(CAT_HINT_NAME)).check(matches(isDisplayed()));
-    }
 
-    @Test
-    public void shouldDisplayCatColorHint() {
         final String CAT_HINT_COLOR = "Enter your cats color";
         onView(withHint(CAT_HINT_COLOR)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void shouldContainCatName() {
+    public void shouldValidateCorrectInput() {
         final String CAT_NAME = "somsak";
+        final String CAT_COLOR = "";
 
         onView(withId(R.id.etCatName)).perform(typeText(CAT_NAME));
-    }
-
-    @Test
-    public void shouldContainCatColor() {
-        final String CAT_COLOR = "blue";
         onView(withId(R.id.etCatColor)).perform(typeText(CAT_COLOR));
-    }
 
-    @Test
-    public void shouldPerformClick() {
         onView(withId(R.id.btnSubmit)).perform(click());
     }
 }

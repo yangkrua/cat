@@ -12,7 +12,8 @@ public class CatPresenterImp implements
     private CatViewContract mCatViewContract;
 
     /* Private constructor */
-    private CatPresenterImp() {
+    public CatPresenterImp() {
+        Timber.d("CatPresenterImp");
     }
 
     /* Factory method */

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,7 +25,11 @@ public class CatView extends Fragment implements CatViewContract {
     @BindView(R.id.etCatName) EditText mEtCatName;
     @BindView(R.id.etCatColor) EditText mEtCatColor;
 
-    private CatPresenterContract.Operations<CatViewContract> mCatPresenterContract;
+    // private CatPresenterContract.Operations<CatViewContract> mCatPresenterContract;
+
+   // @Inject CatPresenterContract.Operations<CatViewContract> mCatPresenterContract;
+
+    @Inject CatPresenterImp mCatPresenterContract;
 
     public CatView() {
         // Required empty public constructor
@@ -36,6 +42,8 @@ public class CatView extends Fragment implements CatViewContract {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Timber.d("onCreateView");
+
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.cat_view, container, false);
 
@@ -47,11 +55,17 @@ public class CatView extends Fragment implements CatViewContract {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Timber.d("onActivityCreated");
 
-        mCatPresenterContract = CatPresenterImp.getNewInstance();
-
-        /* Attach view */
-        mCatPresenterContract.attachView(CatView.this);
+        CatApplication.getApplicationComponent().inject(CatView.this);
+        if(mCatPresenterContract != null) {
+            /* Attach view */
+            mCatPresenterContract.attachView(CatView.this);
+            Timber.d("mCatPresenterContract != null - OK");
+        }
+        else {
+            Timber.e("Failed to inject CatPresenterImp");
+        }
     }
 
     @Override
